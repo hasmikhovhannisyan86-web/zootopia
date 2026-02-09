@@ -17,10 +17,13 @@ def iterates_data(data, template):
     output = ""
 
     for animal_data in data:
-        output += f"Name: {animal_data.get('name', 'Unknown')}\n"
-        output += f"Diet: {animal_data.get('characteristics', {}).get('diet', 'Unknown')}\n"
-        output += f"Location: {animal_data.get('locations', ['Unknown'])[0]}\n"
-        output += f"Type: {animal_data.get('characteristics', {}).get('type', 'Unknown')}\n\n"
+        output += '<li class="cards__item">'
+        output += f"Name: {animal_data.get('name', 'Unknown')}\<br/>n"
+        output += f"Diet: {animal_data.get('characteristics', {}).get('diet', 'Unknown')}<br/>\n"
+        output += f"Location: {animal_data.get('locations', ['Unknown'])[0]}<br/>\n"
+        output += f"Type: {animal_data.get('characteristics', {}).get('type', 'Unknown')}<br/>\n"
+        output += '</li>'
+
 
     new_html = template.replace("__REPLACE_ANIMALS_INFO__", output)
 

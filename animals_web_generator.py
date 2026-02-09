@@ -13,17 +13,24 @@ def load_html(file_path):
         return file.read()
 
 
+def serialize_animal(animal_obj):
+    """Serializes a single animal object into an HTML list item."""
+    output = '<li class="cards__item">\n'
+    output += f'  <div class="card__title">{animal_obj.get("name", "Unknown")}</div>\n'
+    output += '  <p class="card__text">\n'
+    output += f'    <strong>Diet:</strong> {animal_obj.get("characteristics", {}).get("diet", "Unknown")}<br/>\n'
+    output += f'    <strong>Location:</strong> {", ".join(animal_obj.get("locations", ["Unknown"]))}<br/>\n'
+    output += f'    <strong>Type:</strong> {animal_obj.get("characteristics", {}).get("type", "Unknown")}<br/>\n'
+    output += '  </p>\n'
+    output += '</li>\n'
+    return output
+
+
 def iterates_data(data, template):
+    """Generates the full HTML page with all animals."""
     output = ""
-
     for animal_data in data:
-        output += '<li class="cards__item">'
-        output += f"Name: {animal_data.get('name', 'Unknown')}\<br/>n"
-        output += f"Diet: {animal_data.get('characteristics', {}).get('diet', 'Unknown')}<br/>\n"
-        output += f"Location: {animal_data.get('locations', ['Unknown'])[0]}<br/>\n"
-        output += f"Type: {animal_data.get('characteristics', {}).get('type', 'Unknown')}<br/>\n"
-        output += '</li>'
-
+        output += serialize_animal(animal_data)
 
     new_html = template.replace("__REPLACE_ANIMALS_INFO__", output)
 
